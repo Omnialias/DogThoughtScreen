@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doggie Pictures!</title>
+	<!-- Shoutout to @konistehrad for help with a lot of this. I barely knew what I was doing and he was willing to help point me in the right direction -->
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+	#header {
+		background-color: lightblue;
+		margin-left: 40px;
+		margin-right: 40px;
+		border-radius: 5px;
+		display: flex;
+		flex-direction: rows;
+		align-items:center;
+		box-shadow: 2px 3px #999999;
+	}
+	#tweet {
+		margin: 30px 80px 10px 80px;
+		border-style: solid;
+		border-color: #666666;
+		border-radius: 5px;
+		box-shadow: 2px 3px #b3b3b3;
+		padding-left: 50px;
+		padding-right: 50px;
+		font-family: 'Indie Flower', cursive;
+		
+		font-size: 30px;
+	}
+	.cloud {
+		width:40%;
+		border-radius:30%;
+	}
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        //feed to parse
+        var feed = "https://twitrss.me/twitter_user_to_rss/?user=dog_feelings";
+        function refresh() {
+            $.ajax(feed, {
+                accepts:{
+                    xml:"application/rss+xml"
+                },
+                dataType:"xml",
+                success:function(data) {
+                    //Credit: http://stackoverflow.com/questions/10943544/how-to-parse-an-rss-feed-using-javascript
+
+                    var $mostRecentTweet = $(data).find("item").filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "(@dog_feelings)"}).eq(1);
+                    var $description = $mostRecentTweet.find("description");
+					var $deschtml = $description.text().replace(/\n/g,'<br>');
+					var $img = $(data).find("image").first();
+					var $imgurl = $img.find("url");
+                    console.log($deschtml, "Description HTML");
+					console.log($img, "Test image");
+                    setTimeout(refresh, 10000);
+					$( "#content" ).html( $deschtml );
+					$( "#profimg" ).attr({ "src": $imgurl.html(), "style": "width:150px;border-radius:30%;" });
+                }
+            });
+        }
+        $(document).ready(function() {
+            refresh();
+        });
+    </script>
+</head>
+<body>
+
+<div id=header>
+	<div>
+		<center>
+		<img class="cloud" src=thought_bubble.png>
+		</center>
+	</div>
+	<div>
+		<center>
+		<img id="profimg"> 
+		</center>
+	</div>
+	<div>
+		<center>
+		<img class="cloud" src=thought_bubble.png>
+		</center>
+	</div>
+</div>
+
+<div id="tweet">
+	<p id="content"></p>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doggie Pictures!</title>
+    <style>
+	#image {
+		background-color: lightblue;
+		margin-left: 40px;
+		margin-right: 40px
+	}
+	#tweet {
+		background-color: white;
+		padding-left: 100px;
+		padding-right: 100px;
+		font-family: "Arial";
+		font-size: 30px;
+	}
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        //feed to parse
+        var feed = "TestDogThoughts.xml";
+        function refresh() {
+            $.ajax(feed, {
+                accepts:{
+                    xml:"application/rss+xml"
+                },
+                dataType:"xml",
+                success:function(data) {
+                    //Credit: http://stackoverflow.com/questions/10943544/how-to-parse-an-rss-feed-using-javascript
+
+                    var $mostRecentTweet = $(data).find("item").filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "(@dog_feelings)"; })
+					// $ActualTweet = $mostRecentTweet.filter( ( "dc:creator" ).attr("(@dog_feelings"))
+                    var $description = $mostRecentTweet.find("description");
+					var $deschtml = $description.text().replace(/\n/g,'<br>');
+					var $img = $(data).find("image").first();
+					var $imgurl = $img.find("url");
+                    console.log($deschtml, "Description HTML");
+					console.log($img, "Test image");
+                    setTimeout(refresh, 10000);
+					$( "#content" ).html( $deschtml );
+					$( "img" ).attr({ "src": $imgurl.html(), "style": "margin:auto;display:block;width:15%;" });
+					// Additional issue: skipping retweets. Filter based on <dc:creator>@dog_feelings</dc:creator>
+                }
+            });
+        }
+        $(document).ready(function() {
+            refresh();
+        });
+    </script>
+</head>
+<body>
+
+<div id="image">
+	<img>
+</div>
+
+<div id="tweet">
+	<p id="content"></p>
+</div
+
+
+</body>
+</html>
