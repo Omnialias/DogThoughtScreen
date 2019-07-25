@@ -35,7 +35,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
         //feed to parse
-        var feed = "https://twitrss.me/twitter_user_to_rss/?user=dog_feelings";
+        var feed = "https://twitrss.me/mobile_twitter_to_rss/?user=dog_feelings";
         function refresh() {
             $.ajax(feed, {
                 accepts:{
@@ -44,13 +44,17 @@
                 dataType:"xml",
                 success:function(data) {
                     //Credit: http://stackoverflow.com/questions/10943544/how-to-parse-an-rss-feed-using-javascript
-
-                    var $mostRecentTweet = $(data).find("item").filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "(@dog_feelings)"}).eq(1);
+					
+					// Choose the version of $mostRecentTweet that is most appropriate based on var feed above
+                    var $mostRecentTweet = $(data).find("item").filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "Thoughts of Dog (@dog_feelings)"}).eq(1); // To be used with mobile_twitter_to_rss
+					//var $mostRecentTweet = $(data).find("item").filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "Thoughts of Dog (@dog_feelings)"}).eq(1); // To be used with twitter_user_to_rss
                     var $description = $mostRecentTweet.find("description");
 					var $deschtml = $description.text().replace(/\n/g,'<br>');
 					var $img = $(data).find("image").first();
 					var $imgurl = $img.find("url");
-                    console.log($deschtml, "Description HTML");
+					console.log($mostRecentTweet, "Most Recent Tweet");
+                    console.log($description, "Description text");
+					console.log($deschtml, "Description HTML");
 					console.log($img, "Test image");
                     setTimeout(refresh, 3600000);
 					$( "#content" ).html( $deschtml );
