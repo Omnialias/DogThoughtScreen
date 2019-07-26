@@ -8,28 +8,35 @@
 	#header {
 		background-color: lightblue;
 		margin-left: 40px;
+		margin-top: 70px;
 		margin-right: 40px;
 		border-radius: 5px;
 		display: flex;
 		flex-direction: rows;
 		align-items:center;
-		box-shadow: 2px 3px #999999;
+		box-shadow: 3px 3px 1px #999999;
 	}
 	#tweet {
-		margin: 30px 80px 10px 80px;
+		margin: 40px 80px 10px 80px;
 		border-style: solid;
 		border-color: #666666;
 		border-radius: 5px;
-		box-shadow: 2px 3px #b3b3b3;
+		box-shadow: 3px 3px 1px #b3b3b3;
 		padding-left: 50px;
 		padding-right: 50px;
 		font-family: 'Indie Flower', cursive;
-		
 		font-size: 30px;
 	}
 	.cloud {
 		width:40%;
+		margin-top: 15px;
 		border-radius:30%;
+	}
+	#source {
+		/* font-family: 'Arial'; */
+		font-family: 'Indie Flower', cursive;
+		font-size: 10px;
+		margin-top: 30px;
 	}
     </style>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -58,7 +65,7 @@
 					console.log($img, "Test image");
                     setTimeout(refresh, 3600000);
 					$( "#content" ).html( $deschtml );
-					$( "#profimg" ).attr({ "src": $imgurl.html(), "style": "width:150px;border-radius:30%;" });
+					$( "#profimg" ).attr({ "src": $imgurl.html(), "style": "width:150px;margin-bottom:15px;box-shadow: 7px 13px 15px #606060;border-radius:30%;" });
                 }
             });
         }
@@ -90,7 +97,11 @@
 <div id="tweet">
 	<p id="content"></p>
 </div>
-
+<div id="source">
+	<center>
+		Tweets courtesy of <a href="https://twitter.com/dog_feelings">@dog_feelings</a>
+	</center>
+</div
 
 </body>
 </html>
