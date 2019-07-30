@@ -21,7 +21,8 @@ Follow the Install.MD file instructions with the following caveats:
 - install fcgid instead of FastCGI (liapache2-mod-fcgid)
 - apt-get install cpanminus libcurl13-dev
 - cd /var/www/twitrssme before running cpanm --installdeps
-- Until https://github.com/ciderpunx/twitrssme/issues/75 is resolved - edit /var/www/twitrssme/fcgi/twitter_user_to_rss.pl and add 
+- Until https://github.com/ciderpunx/twitrssme/issues/75 is resolved 
+    -edit /var/www/twitrssme/fcgi/twitter_user_to_rss.pl and add 
 	$browser->cookie_jar( {} ); 
   between line 24 and 25. 
     -edit /var/www/twitrssme/index.html and replace mobile_twitter_to_rss with twitter_user_to_rss
