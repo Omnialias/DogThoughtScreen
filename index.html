@@ -53,8 +53,8 @@
                     //Credit: http://stackoverflow.com/questions/10943544/how-to-parse-an-rss-feed-using-javascript
 					
 		    // Choose the version of $mostRecentTweet that is most appropriate based on var feed above
-                    //var $mostRecentTweet = $(data).find("item").eq(1).filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "Thoughts of Dog (@dog_feelings)"}); // To be used with mobile_twitter_to_rss
-		    var $mostRecentTweet = $(data).find("item").eq(1).filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "(@dog_feelings)"}); // To be used with twitter_user_to_rss
+                    //var $mostRecentTweet = $(data).find("item").filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "Thoughts of Dog (@dog_feelings)"}).eq(1); // To be used with mobile_twitter_to_rss
+		    var $mostRecentTweet = $(data).find("item").filter(function(idx) { return $(this).find("dc\\:creator").text().trim() == "(@dog_feelings)"}).eq(1); // To be used with twitter_user_to_rss
                     var $description = $mostRecentTweet.find("description");
 					var $deschtml = $description.text().replace(/\n/g,'<br>');
 					var $img = $(data).find("image").first();
